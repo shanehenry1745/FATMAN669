@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Video</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Fat Man Dances</title>
+
   <style>
     :root { --pad: 14px; }
 
@@ -80,16 +81,22 @@
     }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <h1>Fat Man Dances</h1>
-    <div class="ratio">
-      <iframe
-        src="https://www.youtube.com/embed/2uC4eMvrVsU?rel=0&modestbranding=1"
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>
-    </div>
+  <div class="page">
+    <header>
+      <h1>Fat Man Dances</h1>
+    </header>
+
+    <main class="video-area">
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/VIDEO_ID_HERE?playsinline=1&rel=0"
+          title="Fat Man Dances"
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </main>
   </div>
 </body>
 </html>
