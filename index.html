@@ -4,17 +4,40 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Video</title>
-  <style>
-    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; background:#000; }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
-    .ratio { position: relative; padding-top: 56.25%; } /* 16:9 */
-    iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
-    h1 { color:#fff; font-size:18px; font-weight:600; margin:0 0 12px; }
-  </style>
+<style>
+  /* Makes the video stay landscape (16:9) and fill the screen width */
+  .video-wrap {
+    max-width: 1100px;      /* optional */
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  .video-16x9 {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;   /* modern browsers */
+    background: #000;
+    border-radius: 12px;    /* optional */
+    overflow: hidden;       /* optional */
+  }
+
+  .video-16x9 iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Fallback for older browsers that don't support aspect-ratio */
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-16x9 { height: 0; padding-top: 56.25%; }
+  }
+</style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Watch</h1>
+    <h1>Fat Man Dances</h1>
     <div class="ratio">
       <iframe
         src="https://www.youtube.com/embed/2uC4eMvrVsU?rel=0&modestbranding=1"
