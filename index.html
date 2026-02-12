@@ -4,36 +4,68 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Video</title>
-<style>
-  /* Makes the video stay landscape (16:9) and fill the screen width */
-  .video-wrap {
-    max-width: 1100px;      /* optional */
-    margin: 0 auto;
-    padding: 16px;
-  }
+  <style>
+    :root { --pad: 14px; }
 
-  .video-16x9 {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;   /* modern browsers */
-    background: #000;
-    border-radius: 12px;    /* optional */
-    overflow: hidden;       /* optional */
-  }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #000;
+      color: #fff;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
 
-  .video-16x9 iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
+    /* Layout: title row + video takes the rest */
+    .page {
+      min-height: 100svh; /* better on mobile than 100vh */
+      display: flex;
+      flex-direction: column;
+    }
 
-  /* Fallback for older browsers that don't support aspect-ratio */
-  @supports not (aspect-ratio: 16 / 9) {
-    .video-16x9 { height: 0; padding-top: 56.25%; }
-  }
-</style>
+    header {
+      padding: var(--pad);
+      text-align: center;
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(20px, 4vw, 34px);
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    /* Video fills remaining height as much as possible */
+    .video-area {
+      flex: 1 1 auto;
+      padding: 0 var(--pad) var(--pad);
+      display: flex;
+    }
+
+    /* Keep 16:9, maximize size within available space */
+    .video-frame {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      aspect-ratio: 16 / 9;
+      align-self: center;         /* centers vertically if extra space */
+      background: #000;
+      border-radius: 14px;        /* optional */
+      overflow: hidden;           /* optional */
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* If the screen is very short (landscape phone), reduce padding a bit */
+    @media (max-height: 520px) {
+      :root { --pad: 8px; }
+    }
+  </style>
 </head>
 <body>
   <div class="wrap">
