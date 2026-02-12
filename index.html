@@ -15,9 +15,8 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    /* Layout: title row + video takes the rest */
     .page {
-      min-height: 100svh; /* better on mobile than 100vh */
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
     }
@@ -30,41 +29,54 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(20px, 4vw, 34px);
+      font-size: clamp(20px, 3.5vw, 34px);
       font-weight: 800;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
     }
 
-    /* Video fills remaining height as much as possible */
+    /* Video area takes all remaining space */
     .video-area {
       flex: 1 1 auto;
       padding: 0 var(--pad) var(--pad);
-      display: flex;
+      display: grid;
+      place-items: center;
     }
 
-    /* Keep 16:9, maximize size within available space */
+    /*
+      The trick:
+      - Use min() to cap by BOTH available width and available height
+      - Keep aspect ratio so it never looks stretched
+    */
     .video-frame {
-      width: 100%;
-      max-width: 1400px;
-      height: 100%;
-      margin: 0 auto;
+      width: min(96vw, calc((100svh - 90px) * (16 / 9)));
+      height: calc(width * (9 / 16)); /* fallback isn't allowed, so we set via aspect-ratio below */
       aspect-ratio: 16 / 9;
-      align-self: center;         /* centers vertically if extra space */
+      max-height: calc(100svh - 90px); /* 90px ~ header + padding */
       background: #000;
-      border-radius: 14px;        /* optional */
-      overflow: hidden;           /* optional */
+      border-radius: 14px;
+      overflow: hidden;
     }
 
-    iframe {
+    .video-frame iframe {
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
     }
 
-    /* If the screen is very short (landscape phone), reduce padding a bit */
+    /* On tall/narrow screens (most phones portrait), favor a taller player */
+    @media (max-aspect-ratio: 3/4) {
+      .video-frame {
+        aspect-ratio: 9 / 16; /* change this to 16/9 if your video is not vertical */
+        width: min(96vw, calc((100svh - 90px) * (9 / 16)));
+        max-height: calc(100svh - 90px);
+      }
+    }
+
+    /* Small-height landscape phones: reduce padding/title space a bit */
     @media (max-height: 520px) {
       :root { --pad: 8px; }
+      .video-frame { max-height: calc(100svh - 70px); }
     }
   </style>
 </head>
